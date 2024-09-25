@@ -73,6 +73,7 @@ for j in range(n.size):
  value_trap[j] = integral_trap_numpy(f_4,0.0,1.0, n[j])
  print(value_trap)
 
+
 '''
 #plt.plot((b-a)/n,np.abs(3.0-value_rect),label="Метод прямоугольников")
 plt.plot((b-a)/n,np.abs(3.0-value_trap),label="Метод трапеций")
