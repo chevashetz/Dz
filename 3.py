@@ -38,9 +38,7 @@ def MonteCarlo_Integr(rho_func, npoints):
 
 npoints = 100000
 
-
 Muni, x_centermuni, y_centermuni, Iuni = MonteCarlo_Integr(rho_uniform, npoints)
-
 
 Mint, x_centermint, y_centermint, Iint = MonteCarlo_Integr(rho_intro, npoints)
 
