@@ -228,6 +228,7 @@ error = np.zeros(npoint.size)
 for i in range(npoint.size):
     value[i] = 4.0*MonteCarlo1(func, 0.0, 1.0, 1.0, npoint[i])
     error[i] = np.pi - value[i]
+
 '''
 plt.plot(npoint, error)
 plt.xscale('log')
