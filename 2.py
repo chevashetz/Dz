@@ -83,7 +83,7 @@ plt.xscale("log")
 plt.yscale("log")
 plt.show()
 
-plt.plot(n_values, np.abs(0.632121-value_rect[3][:]))
+plt.plot(n_values, np.abs(0.632121-value_rect[2][:]))
 plt.plot(n_values, 1/n_values**1.0, '.')
 plt.title("Абсолютная погрешность f_3")
 plt.xscale("log")
@@ -91,8 +91,12 @@ plt.yscale("log")
 plt.show()
 
 
-
-
+plt.plot(n_values, np.abs(0.785398-value_rect[3][:]))
+plt.plot(n_values, 1/n_values**1.0, '.')
+plt.title("Абсолютная погрешность f_4")
+plt.xscale("log")
+plt.yscale("log")
+plt.show()
 
 plt.plot((b-a)/n_values, np.abs(3.0-value_rect[0][:]), label="Метод прямоугольников")
 plt.plot((b-a)/n_values, np.abs(3.0-value_trap[0][:]), label="Метод трапеций")
@@ -100,6 +104,10 @@ plt.plot((b-a)/n_values, np.abs(3.0-value_simp[0][:]), label="Метод Сим�
 plt.title("Абсолютная погрешность")
 plt.legend()
 plt.show()
+
+
+
+
 '''
 plt.plot((b-a)/n_values, np.abs(3.0-value_rect[0][:]), label="Метод прямоугольников")
 plt.plot((b-a)/n_values, np.abs(3.0-value_trap[0][:]), label="Метод трапеций")
