@@ -53,3 +53,51 @@ print(f"Non-uniform Density:")
 print(f"Mass = {Mint}")
 print(f"Center of Mass = ({x_centermint}, {y_centermint})")
 print(f"Moment of Inertia = {Iint}")
+
+def x0(n):
+    np.random.seed()
+    x0 = np.random.uniform(a,b,n)
+    return x0
+
+def func (n):
+  x=x0(n)
+  return np.sin(np.sum(x**2.0))
+
+def stdo(g, a, b, m, n):
+  f1 = 0
+  f2 = 0
+  for i in range(m):
+
+    f1 += g[i]**2
+    f2 += g[i]
+
+  return np.sqrt(abs(f1/m - (f2/m)**2))
+
+def MonteCarloCube(f,a,b,m,n):
+  summ = 0
+  for i in range(m):
+    summ=summ+f[i]
+  return ((b-a)**n)*summ/m
+
+n = 4
+a = 0
+b = 1
+eps = 0.01
+m = 10
+
+point = np.zeros(m)
+for i in range(m):
+    point[i] = func(n)
+
+while ((stdo(point,a,b,m,n)/(m**0.5)) >= eps):
+    m += 1
+    point = np.zeros(m)
+    for i in range(m):
+      point[i] = func(n)
+
+Integ = MonteCarloCube(point, a, b, m, n)
+sko = stdo(point, a, b, m, n)/(m**0.5)
+
+print('Число итераций n=', m)
+print('Интеграл=', Integ)
+print('СКО=', sko)
