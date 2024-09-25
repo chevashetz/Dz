@@ -210,7 +210,7 @@ plt.legend()
 plt.show()
 '''
 
-nin = yi[yi<=func(xi)].size
+nin = yi[yi <= func(xi)].size
 for i in range(npoint1):
     if yi[i] <= func(xi[i]):
         nin += 1
@@ -253,46 +253,3 @@ n_min = npoint[np.where(error < 0.01)[0][0]]
 print('Испытаний требуется для погрещности меньше 0.01:', n_min)
 print("\n")
 
-def rho_uniform(x,y):
-  return 1.0
-
-def rho_intro(x,y):
-  return 1.0+0.5*(x**2.0+y**2.0)
-
-def inside_disk(x,y, a=1):
-  r_outer = 4.0
-  r_inner = 1.0
-
-  if x**2.0+y**2.0 <= r_outer**2.0:
-    if (x-a)**2.0+y**2.0 > r_inner**2.0:
-      return True
-  return False
-
-def MonteCarlo_Integr(rho_func,npoints):
-    M = 0.0
-    x_centerm = 0.0
-    y_centerm = 0.0
-    I = 0.0
-
-    for _ in range(npoints):
-      x = np.random.uniform(-4.0,4.0)
-      y = np.random.uniform(-4.0,4.0)
-      if inside_disk(x, y):
-        rho = rho_func(x, y)
-        M += rho
-        x_centerm += x*rho
-        y_centerm += y*rho
-        I += (x**2.0+y**2.0) * rho
-
-    area = np.pi*(4**2.0-1.0)
-    M *= area/npoints
-    x_centerm *= area/(npoints*M)
-    y_centerm *= area/(npoints*M)
-    I *= area/npoints
-    return M, x_centerm, y_centerm, I
-
-npoints2 = 10000
-Muni, x_centermuni, y_centermuni, Iuni = MonteCarlo_Integr(rho_uniform, npoints2)
-Mint, x_centermint, y_centermunint, Iint = MonteCarlo_Integr(rho_intro, npoints2)
-print("\n")
-print("M1 = ",Muni, "\nX1 = ",x_centermuni, "\nY1 = ", y_centermuni, "\nМомент инерции 1 = ", Iuni, "\nM2 = ", Mint, "\nX2 = ", x_centermint, "\nY2 = ", y_centermunint, "\nМомент инерции 2 = ", Iint)
