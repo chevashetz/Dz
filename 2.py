@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-import math
+import math as mt
 
 a = 0
 b = 1.0
@@ -50,18 +50,64 @@ def integral_simp_numpy(f, a, b, n):
     s = s * dx / 3.0
     return s
 
+
 n_values = np.array([2, 4, 8, 64, 128, 1024])
 
+value_rect = np.zeros((4, n_values.size))
 value_trap = np.zeros((4, n_values.size))
+value_simp = np.zeros((4, n_values.size))
 
 for i in range(4):
-    for j in range(n_values.size):
-        value_trap[i][j] = integral_trap_numpy(functions[i], 0.0, 1.0, n_values[j])
+    if i == 2:
+        for j in range(n_values.size):
+            value_rect[i][j] = integral_rect_numpy(functions[i], 0.0, mt.pi/2, n_values[j])
+            value_trap[i][j] = integral_trap_numpy(functions[i], 0.0, mt.pi/2, n_values[j])
+            value_simp[i][j] = integral_simp_numpy(functions[i], 0.0, mt.pi/2, n_values[j])
+    else:
+        for j in range(n_values.size):
+            value_rect[i][j] = integral_rect_numpy(functions[i], 0.0, 1, n_values[j])
+            value_trap[i][j] = integral_trap_numpy(functions[i], 0.0, 1, n_values[j])
+            value_simp[i][j] = integral_simp_numpy(functions[i], 0.0, 1, n_values[j])
 
-    print(f"Results for f_{i+1}: {value_trap[i]}")
+plt.plot(n_values, np.abs(3.0-value_rect[0][:]))
+plt.plot(n_values, 1/n_values**1.0, '.')
+plt.title("Абсолютная погрешность f_1")
+plt.xscale("log")
+plt.yscale("log")
+plt.show()
+
+plt.plot(n_values, np.abs(1-value_rect[1][:]))
+plt.plot(n_values, 1/n_values**1.0, '.')
+plt.title("Абсолютная погрешность f_2")
+plt.xscale("log")
+plt.yscale("log")
+plt.show()
+
+plt.plot(n_values, np.abs(0.632121-value_rect[3][:]))
+plt.plot(n_values, 1/n_values**1.0, '.')
+plt.title("Абсолютная погрешность f_3")
+plt.xscale("log")
+plt.yscale("log")
+plt.show()
 
 
 
+
+
+plt.plot((b-a)/n_values, np.abs(3.0-value_rect[0][:]), label="Метод прямоугольников")
+plt.plot((b-a)/n_values, np.abs(3.0-value_trap[0][:]), label="Метод трапеций")
+plt.plot((b-a)/n_values, np.abs(3.0-value_simp[0][:]), label="Метод Симпсона")
+plt.title("Абсолютная погрешность")
+plt.legend()
+plt.show()
+'''
+plt.plot((b-a)/n_values, np.abs(3.0-value_rect[0][:]), label="Метод прямоугольников")
+plt.plot((b-a)/n_values, np.abs(3.0-value_trap[0][:]), label="Метод трапеций")
+plt.plot((b-a)/n_values, ((b-a)/n)**2.0, '--')
+plt.title("Абсолютная погрешность")
+plt.legend()
+plt.show()
+'''
 
 '''
 #plt.plot((b-a)/n,np.abs(3.0-value_rect),label="Метод прямоугольников")
