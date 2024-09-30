@@ -36,7 +36,7 @@ def MonteCarlo_Integr(rho_func, npoints):
 
     return M, x_centerm, y_centerm, I
 
-npoints = 100000
+npoints = 10000
 
 Muni, x_centermuni, y_centermuni, Iuni = MonteCarlo_Integr(rho_uniform, npoints)
 
@@ -53,12 +53,12 @@ print(f"Center of Mass = ({x_centermint}, {y_centermint})")
 print(f"Moment of Inertia = {Iint}")
 
 def x0(n):
-    np.random.seed()
-    x0 = np.random.uniform(a,b,n)
+    np.random.seed(52)
+    x0 = np.random.uniform(a, b, n)
     return x0
 
 def func (n):
-  x=x0(n)
+  x = x0(n)
   return np.sin(np.sum(x**2.0))
 
 def stdo(g, a, b, m, n):
@@ -74,13 +74,13 @@ def stdo(g, a, b, m, n):
 def MonteCarloCube(f,a,b,m,n):
   summ = 0
   for i in range(m):
-    summ=summ+f[i]
+    summ = summ+f[i]
   return ((b-a)**n)*summ/m
 
 n = 4
 a = 0
 b = 1
-eps = 0.01
+eps = 0.001
 m = 10
 
 point = np.zeros(m)
